@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+
+  citydb:
+    container_name: sectordb
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: sector
+      POSTGRES_USER: sector
+      POSTGRES_DB: sectordb
+    ports:
+      - "5432:5432"
