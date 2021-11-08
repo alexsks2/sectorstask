@@ -1,7 +1,7 @@
 version: '3.4'
 services:
 
-  citydb:
+  sectordb:
     container_name: sectordb
     image: postgres:13
     restart: always
@@ -9,5 +9,7 @@ services:
       POSTGRES_PASSWORD: sector
       POSTGRES_USER: sector
       POSTGRES_DB: sectordb
+    volumes:
+      - ./src/main/resources/dbscripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
