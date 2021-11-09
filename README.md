@@ -5,4 +5,12 @@
     ```` cmd
     docker-compose up -d
     ````
-3. ...
+3. Run the application by executing command
+    ```` cmd
+    ./mvnw spring-boot:run
+    ````
+   Or if Maven is installed locally
+    ```` cmd
+    mvn spring-boot:run
+    ````
+4. Follow this link in browser: http://localhost:8080

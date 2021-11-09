@@ -1,7 +1,9 @@
 package com.solbeg.sectorstask.controller;
 
 import com.solbeg.sectorstask.entity.Sector;
+import com.solbeg.sectorstask.entity.User;
 import com.solbeg.sectorstask.service.SectorService;
+import com.solbeg.sectorstask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class SectorController {
 
     @Autowired
     private SectorService sectorService;
+
+    @Autowired
+    private UserService userService;
 
     @Value("${welcome.message}")
     private String message;
@@ -41,9 +46,10 @@ public class SectorController {
         return "new-index";
     }
 
-    @PostMapping("/saveSector")
-    private String saveSector(@ModelAttribute("sector") Sector sector) {
-        sectorService.saveSector(sector);
+    @PostMapping("/save")
+    private String save(@ModelAttribute("userData") User user, Model model) {
+        model.addAttribute("userData", user);
+        userService.save(user);
         return "redirect:/list";
     }
 

@@ -9,3 +9,13 @@ CREATE TABLE sector
 
     FOREIGN KEY (parent_id) REFERENCES sector(id)
 );
+
+-- DROP TABLE IF EXISTS users CASCADE;
+-- CREATE TABLE users
+-- (
+--     id          SERIAL   NOT NULL    UNIQUE
+--         CONSTRAINT sectors_pkey PRIMARY KEY,
+--     name        TEXT     NOT NULL,
+--     agreeToTerms BOOLEAN,
+--     sector_ids  INTEGER
+-- );

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -17,7 +18,7 @@
 
     <h3>${message}</h3>
     <br>
-    Name: <input type="text" required placeholder="Name is required">
+    Name: <input type="text" value="${userData.name}" required placeholder="Name is required">
     <br>
     <br>
 
@@ -33,7 +34,7 @@
 
     <br>
     <br>
-    <input type="checkbox"> Agree to terms
+    <input type="checkbox" value="${userData.agreeToTerms}"> Agree to terms
 
     <br>
     <br>
