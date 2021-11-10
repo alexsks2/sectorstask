@@ -1,6 +1,5 @@
 package com.solbeg.sectorstask.controller;
 
-import com.solbeg.sectorstask.entity.Sector;
 import com.solbeg.sectorstask.entity.User;
 import com.solbeg.sectorstask.service.SectorService;
 import com.solbeg.sectorstask.service.UserService;
