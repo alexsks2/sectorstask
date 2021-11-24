@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sectors</title>
+</head>
+<body>
+
+<div id="wrapper">
+    <h3>Sectors:</h3>
+</div>
+
+<select multiple="" size="5"></select>
+<br>
+<br>
+
+<form th:method="GET" th:action="@{/list}">
+    <input type="submit" value="Fill" >
+</form>
+
+</body>
+</html>

@@ -1,19 +1,22 @@
 package com.solbeg.sectorstask.entity;
 
+import com.vladmihalcea.hibernate.type.array.IntArrayType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Table(name = "users")
+@TypeDef(name = "int-array", typeClass = IntArrayType.class)
 public class User {
 
     @Id
@@ -24,9 +27,9 @@ public class User {
 
     private boolean agreeToTerms;
 
-//    @Type(type = "list-array")
-//    @Column(name = "sector_ids",
-//            columnDefinition = "integer[]")
-    private int sectorIds;
+    @Type(type = "int-array")
+    @Column(name = "sector_ids",
+            columnDefinition = "integer[]")
+    private int[] sectorIds;
 
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html>
@@ -104,6 +103,9 @@ Sectors:
 
 <br>
 <br>
-<input type="submit" value="Save">
+<form th:method="POST" th:action="@{/export}">
+	<input type="submit" value="Save" title="Press the button to import data">
+</form>
+
 </body>
 </html>

@@ -5,17 +5,27 @@ import com.solbeg.sectorstask.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public void save(User user) {
-        userRepository.save(user);
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public User getUser(String name) {
-        return userRepository.getUserByName(name);
+    public void processUser(User user) {
+        Optional<User> optionalUser = userRepository.findUserByName(user.getName());
+        if (optionalUser.isPresent()) {
+            User userToUpdate = optionalUser.get();
+            userToUpdate.setAgreeToTerms(user.isAgreeToTerms());
+            userToUpdate.setSectorIds(user.getSectorIds());
+            userRepository.save(userToUpdate);
+        } else {
+            userRepository.save(user);
+        }
     }
 }

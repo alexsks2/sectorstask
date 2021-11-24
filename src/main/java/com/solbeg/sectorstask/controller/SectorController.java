@@ -4,7 +4,6 @@ import com.solbeg.sectorstask.entity.User;
 import com.solbeg.sectorstask.service.SectorService;
 import com.solbeg.sectorstask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,25 +13,30 @@ import java.io.IOException;
 @Controller
 public class SectorController {
 
-    @Autowired
-    private SectorService sectorService;
+    private final SectorService sectorService;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
-
-    @Value("${welcome.message}")
-    private String message;
+    public SectorController(SectorService sectorService, UserService userService) {
+        this.sectorService = sectorService;
+        this.userService = userService;
+    }
 
     @GetMapping(value = { "/", "/index" })
-    public String index(Model model) {
-        model.addAttribute("message", message);
+    public String index() {
         return "index";
+    }
+
+    @GetMapping("/emptylist")
+    public String emptyList() {
+        return "index2";
     }
 
     @GetMapping(value = "/list")
     public String getAll(Model model) {
         model.addAttribute("sectorList", sectorService.getAll());
-        return "new-index";
+        model.addAttribute("user", new User());
+        return "index3";
     }
 
     @RequestMapping("/export")
@@ -42,13 +46,12 @@ public class SectorController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "new-index";
+        return "redirect:/list";
     }
 
-    @PostMapping("/save")
-    private String save(@ModelAttribute("userData") User user, Model model) {
-        model.addAttribute("userData", user);
-        userService.save(user);
+    @PostMapping("/create")
+    private String create(@ModelAttribute("user") User user) {
+        userService.processUser(user);
         return "redirect:/list";
     }
 

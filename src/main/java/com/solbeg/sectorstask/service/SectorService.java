@@ -22,11 +22,11 @@ public class SectorService {
     @Value("${app.import.file.path}")
     private Resource fileName;
 
-    @Autowired
-    private SectorRepository sectorRepository;
+    private final SectorRepository sectorRepository;
 
-    public void saveSector(Sector sector) {
-        sectorRepository.saveAndFlush(sector);
+    @Autowired
+    public SectorService(SectorRepository sectorRepository) {
+        this.sectorRepository = sectorRepository;
     }
 
     public void importSectorList() throws IOException {

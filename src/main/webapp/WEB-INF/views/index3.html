@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sectors</title>
+</head>
+<body>
+
+<h3>Please enter your name and pick the Sectors you are currently involved in:</h3>
+
+<form th:method="POST" th:action="@{/create}" th:object="${user}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name" required placeholder="Name is required">
+
+    <br>
+
+    <div id="wrapper">
+        <h2>Sectors:</h2>
+    </div>
+
+    <select multiple="" size="5" th:field="*{sectorIds}" th:required="required">
+        <div th:each="sectorElem : ${sectorList}">
+            <option th:value="${sectorElem.getId()}" th:utext="${sectorElem.getName()}">options</option>
+        </div>
+    </select>
+
+    <br>
+    <br>
+
+    <input type="checkbox" th:field="*{agreeToTerms}" id="agree" th:required="'You should agree to terms'">
+    <label for="agree"> Agree to terms</label>
+    <br>
+    <br>
+    <input type="submit" value="Save">
+</form>
+
+<br>
+
+<form th:method="GET" th:action="@{/emptylist}">
+    <input type="submit" value="Clear" >
+</form>
+</body>
+</html>
