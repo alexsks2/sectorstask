@@ -9,6 +9,9 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -23,8 +26,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Name should not be empty")
+    @Size(max = 20, message = "Name is too long")
     private String name;
 
+    @AssertTrue(message = "You should agree to terms in order to proceed")
     private boolean agreeToTerms;
 
     @Type(type = "int-array")

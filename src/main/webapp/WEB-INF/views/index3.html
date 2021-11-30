@@ -9,9 +9,24 @@
 <h3>Please enter your name and pick the Sectors you are currently involved in:</h3>
 
 <form th:method="POST" th:action="@{/create}" th:object="${user}">
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name" required placeholder="Name is required">
+    <label for="username">Name: </label>
+    <input type="text" th:field="*{name}" th:value="*{name}" id="username">
+<!--    <a th:href="@{/list(name=*{name})}">Load user</a>-->
+    <a href="#" id="link">Load user</a>
 
+    <script th:inline="javascript">
+        const input = document.querySelector('#username')
+        const link = document.querySelector('#link')
+
+        console.log(link)
+
+        input.addEventListener('input', (e) => {
+            console.log(e.target.value)
+            link.setAttribute('href', '/list?name=' + e.target.value)
+        })
+    </script>
+
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br>
 
     <div id="wrapper">

@@ -6,8 +6,10 @@ import com.solbeg.sectorstask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -33,9 +35,14 @@ public class SectorController {
     }
 
     @GetMapping(value = "/list")
-    public String getAll(Model model) {
+    public String getAll(Model model, @RequestParam(value = "name",required = false) String name) {
         model.addAttribute("sectorList", sectorService.getAll());
-        model.addAttribute("user", new User());
+        User user = new User();
+        if (name != null) {
+            user = userService.getUser(name);
+        }
+        model.addAttribute("user", user);
+
         return "index3";
     }
 
@@ -50,7 +57,12 @@ public class SectorController {
     }
 
     @PostMapping("/create")
-    private String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("sectorList", sectorService.getAll());
+            return "index3";
+        }
+
         userService.processUser(user);
         return "redirect:/list";
     }

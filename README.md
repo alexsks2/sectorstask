@@ -14,3 +14,4 @@
     mvn spring-boot:run
     ````
 4. Follow this link in browser: http://localhost:8080
+5. Click SAVE button to export data from index file to database. 
