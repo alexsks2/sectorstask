@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=sector_db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+  be:
+    build:
+      context: ./be/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://db:5432/sector_db
+      DATASOURCE_USERNAME: root
+      DATASOURCE_PASSWORD: root
+
+  fe:
+    build:
+      context: ./fe/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: always
+#    depends_on:
+#      - be
